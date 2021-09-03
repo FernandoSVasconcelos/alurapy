@@ -18,7 +18,7 @@ class TestAvaliador(TestCase):
         newAvaliador.avalia(newLeilao)
 
         menor_valor_esperado = 100.0
-        maior_valor_esperado = 150.0
+        maior_valor_esperado = 120.2
 
         self.assertEqual(menor_valor_esperado, newAvaliador.menor_lance)
         self.assertEqual(maior_valor_esperado, newAvaliador.maior_lance)
