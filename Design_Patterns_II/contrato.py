@@ -73,24 +73,24 @@ if __name__ == '__main__':
     contrato = Contrato(data=date.today(),
         cliente='Flávio Almeida', tipo='NOVO')
 
-    print contrato.tipo
-    print contrato.cliente
+    print(f"{contrato.tipo}")
+    print(f"{contrato.cliente}")
 
     contrato.avanca()
     historico.adiciona_estado(contrato.salva_estado())
 
-    print contrato.tipo
-    print contrato.cliente
+    print(f"{contrato.tipo}")
+    print(f"{contrato.cliente}")
     
     contrato.avanca()
     historico.adiciona_estado(contrato.salva_estado())
 
-    print contrato.tipo
-    print contrato.cliente
+    print(f"{contrato.tipo}")
+    print(f"{contrato.cliente}")
 
     contrato.avanca()
 
-    print contrato.tipo
-    print contrato.cliente
+    print(f"{contrato.tipo}")
+    print(f"{contrato.cliente}")
     
     historico.adiciona_estado(contrato.salva_estado())

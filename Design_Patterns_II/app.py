@@ -7,6 +7,6 @@ cursor = connection.cursor()
 cursor.execute('SELECT * from cursos')
 
 for linha in cursor:
-    print linha
+    print(f"{linha}")
 
 connection.close()
