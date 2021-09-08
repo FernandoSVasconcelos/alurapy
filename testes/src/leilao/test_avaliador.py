@@ -1,83 +1,61 @@
 from unittest import TestCase
-from dominio import Usuario, Lance, Leilao, Avaliador
+from dominio import Usuario, Lance, Leilao
+
 
 class TestAvaliador(TestCase):
-    def test_retorna_maior_menor_valor_de_lance_adicionado_ordem_crescente(self):
-        fer = Usuario("Fer")
-        gui = Usuario("Gui")
 
-        lance_gui = Lance(gui, 100.0)
-        lance_fer = Lance(fer, 120.2)
-        
-        newLeilao = Leilao("Celular")
+    # test_quando_adicionados_em_ordem_crescente_deve_retornar_o_maior_e_o_menor_valor_de_um_lance
 
-        newLeilao.lances.append(lance_gui)
-        newLeilao.lances.append(lance_fer)
-        
-        newAvaliador = Avaliador()
-        newAvaliador.avalia(newLeilao)
+    def setUp(self):
+        self.gui = Usuario('Gui')
+        self.lance_do_gui = Lance(self.gui, 150.0)
+        self.leilao = Leilao('Celular')
 
-        menor_valor_esperado = 100.0
-        maior_valor_esperado = 120.2
+    def test_deve_retornar_o_maior_e_o_menor_valor_de_um_lance_quando_adicionados_em_ordem_crescente(self):
+        yuri = Usuario('Yuri')
+        lance_do_yuri = Lance(yuri, 100.0)
 
-        self.assertEqual(menor_valor_esperado, newAvaliador.menor_lance)
-        self.assertEqual(maior_valor_esperado, newAvaliador.maior_lance)
-
-    def test_retorna_maior_menor_valor_de_lance_adicionado_ordem_decrescente(self):
-        gui = Usuario("Gui")
-        fer = Usuario("Fer")
-
-        lance_fer = Lance(fer, 120.2)
-        lance_gui = Lance(gui, 100.0)
-        
-        newLeilao = Leilao("Celular")
-
-        newLeilao.lances.append(lance_fer)
-        newLeilao.lances.append(lance_gui)
-        
-        newAvaliador = Avaliador()
-        newAvaliador.avalia(newLeilao)
+        self.leilao.propoe(lance_do_yuri)
+        self.leilao.propoe(self.lance_do_gui)
 
         menor_valor_esperado = 100.0
-        maior_valor_esperado = 120.2
+        maior_valor_esperado = 150.0
 
-        self.assertEqual(menor_valor_esperado, newAvaliador.menor_lance)
-        self.assertEqual(maior_valor_esperado, newAvaliador.maior_lance)
+        self.assertEqual(menor_valor_esperado, self.leilao.menor_lance)
+        self.assertEqual(maior_valor_esperado, self.leilao.maior_lance)
 
-    def test_um_lance(self):
-        gui = Usuario("Gui")
+    def test_deve_retornar_o_maior_e_o_menor_valor_de_um_lance_quando_adicionados_em_ordem_decrescente(self):
+        yuri = Usuario('Yuri')
+        lance_do_yuri = Lance(yuri, 100.0)
 
-        lance = Lance(gui, 150.0)
+        self.leilao.propoe(self.lance_do_gui)
+        self.leilao.propoe(lance_do_yuri)
 
-        leilao = Leilao("Celular")
-        leilao.lances.append(lance)
+        menor_valor_esperado = 100.0
+        maior_valor_esperado = 150.0
 
-        avaliador = Avaliador()
-        avaliador.avalia(leilao)
+        self.assertEqual(menor_valor_esperado, self.leilao.menor_lance)
+        self.assertEqual(maior_valor_esperado, self.leilao.maior_lance)
 
-        self.assertEqual(150.0, avaliador.menor_lance)
-        self.assertEqual(150.0, avaliador.maior_lance)
+    def test_deve_retornar_o_mesmo_valor_para_o_maior_e_menor_lance_quando_leilao_tiver_um_lance(self):
+        self.leilao.propoe(self.lance_do_gui)
 
-    def test_tres_lances(self):
-        gui = Usuario("Gui")
-        fer = Usuario("Fer")
-        vini = Usuario("Vini")
+        self.assertEqual(150.0, self.leilao.menor_lance)
+        self.assertEqual(150.0, self.leilao.maior_lance)
 
-        lance_fer = Lance(fer, 120.2)
-        lance_gui = Lance(gui, 100.0)
-        lance_vini = Lance(vini, 200.0)
-        
-        newLeilao = Leilao("Celular")
+    def test_deve_retornar_o_maior_e_o_menor_valor_quando_o_leilao_tiver_tres_lances(self):
+        yuri = Usuario('Yuri')
+        lance_do_yuri = Lance(yuri, 100.0)
+        vini = Usuario('Vini')
 
-        newLeilao.lances.append(lance_fer)
-        newLeilao.lances.append(lance_gui)
-        newLeilao.lances.append(lance_vini)
-        
-        newAvaliador = Avaliador()
-        newAvaliador.avalia(newLeilao)
+        lance_do_vini = Lance(vini, 200.0)
+
+        self.leilao.propoe(lance_do_yuri)
+        self.leilao.propoe(self.lance_do_gui)
+        self.leilao.propoe(lance_do_vini)
 
         menor_valor_esperado = 100.0
         maior_valor_esperado = 200.0
 
-        self.assertEqual(menor_valor_esperado, newAvaliador.menor_lance)
-        self.assertEqual(maior_valor_esperado, newAvaliador.maior_lance)
+        self.assertEqual(menor_valor_esperado, self.leilao.menor_lance)
+        self.assertEqual(maior_valor_esperado, self.leilao.maior_lance)
