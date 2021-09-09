@@ -11,6 +11,6 @@ class FabricaFila:
         if tipo_fila == TIPO_FILA_NORMAL:
             return FilaNormal()
         elif tipo_fila == TIPO_FILA_PRIORITARIA:
-            return FilaPrioritaria
+            return FilaPrioritaria()
         else:
             raise NotImplementedError('Tipo de fila não existe')
